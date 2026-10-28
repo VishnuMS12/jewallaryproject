@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Display contact</h1>
+<table>
+  <thead>
+  <tr>
+      <th>Name </th>
+      <th>Email </th>
+      <th> Subject </th>
+      <th> Message  </th>
+      <th> Action </th>
+  </tr>
+    {% for d in data %}
+    <tr>
+        <td>{{d.Name}}</td>
+        <td>{{d.Email}}</td>
+        <td>{{d.Subject}}</td>
+        <td>{{d.Message}}</td>
+        <td>
+           <a href="{% url 'deletecontact' con_id=d.id %}"><button>Delete</button></a>
+    </tr>
+    {% endfor %}
+  </thead>
+</table>
+</body>
+</html>
+{% endblock %}

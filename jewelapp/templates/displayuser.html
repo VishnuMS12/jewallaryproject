@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Display users</h1>
+<table>
+    <tr>
+        <th>user name</th>
+         <th>password</th>
+         <th>confirm_password</th>
+         <th>Mobile number</th>
+         <th>emailid</th>
+
+    </tr>
+    {% for d in data %}
+    <tr>
+        <td>{{d.username}}</td>
+         <td>{{d.password}}</td>
+         <td>{{d.confirm_password}}</td>
+         <td>{{d.Mobile_number}}</td>
+         <td>{{d.Email_id}}</td>
+        <td><a href="{% url 'deleteuser' user_id=d.id %}"><button>Delete</button></a></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,607 @@
+# 💳 Attractive Payment Page — HTML + CSS + JavaScript
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Secure Payment Page</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+    background: linear-gradient(135deg, #141e30, #243b55);
+}
+
+.payment-container {
+    width: 100%;
+    max-width: 950px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    animation: appear 0.8s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* LEFT SECTION */
+
+.payment-info {
+    background: linear-gradient(145deg, #6c63ff, #4834d4);
+    color: white;
+    padding: 45px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 45px;
+}
+
+.logo span {
+    color: #ffd86b;
+}
+
+.payment-info h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.payment-info p {
+    color: #e4e1ff;
+    line-height: 1.7;
+}
+
+.price {
+    margin: 35px 0;
+}
+
+.price h1 {
+    font-size: 43px;
+    margin: 10px 0;
+}
+
+.price small {
+    font-size: 15px;
+    color: #e4e1ff;
+}
+
+.order-details {
+    border-top: 1px solid rgba(255,255,255,0.3);
+    padding-top: 25px;
+}
+
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 17px 0;
+}
+
+.secure {
+    margin-top: 35px;
+    font-size: 13px;
+}
+
+/* RIGHT SECTION */
+
+.payment-form {
+    padding: 45px 35px;
+}
+
+.payment-form h2 {
+    color: #252447;
+    font-size: 27px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 9px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
+}
+
+.card-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.method {
+    flex: 1;
+    padding: 13px 5px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.method.active,
+.method:hover {
+    border-color: #6c63ff;
+    background: #f0efff;
+    color: #5145cd;
+}
+
+.row {
+    display: flex;
+    gap: 15px;
+}
+
+.row > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.pay-button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6c63ff, #4834d4);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(108,99,255,0.3);
+    transition: 0.3s;
+}
+
+.pay-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(108,99,255,0.4);
+}
+
+.pay-button:active {
+    transform: scale(0.98);
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* SUCCESS MESSAGE */
+
+#success {
+    display: none;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.success-icon {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: #d4edda;
+    color: #218838;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    margin: 0 auto 20px;
+    animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+@media(max-width: 700px) {
+    .payment-container {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-info {
+        padding: 30px 25px;
+    }
+
+    .payment-form {
+        padding: 30px 25px;
+    }
+
+    .logo {
+        margin-bottom: 25px;
+    }
+
+    .price {
+        margin: 25px 0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="payment-container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="payment-info">
+
+        <div>
+            <div class="logo">Pay<span>Ease.</span></div>
+
+            <h2>Complete Your Purchase</h2>
+
+            <p>
+                Fast, simple and secure payments.
+                Complete your order using your preferred payment method.
+            </p>
+
+            <div class="price">
+                <small>Total Amount</small>
+                <h1>₹{{total}}</h1>
+                <small>Inclusive of all taxes</small>
+            </div>
+        </div>
+
+        <div class="order-details">
+
+            <h3>Order Summary</h3>
+
+            <div class="order-row">
+                <span>Premium Plan</span>
+                <span>₹{{total}}</span>
+            </div>
+
+            <div class="order-row">
+                <span>Service Fee</span>
+                <span>₹300</span>
+            </div>
+
+            <div class="order-row">
+                <strong>Total</strong>
+                <strong>₹{{total}}</strong>
+            </div>
+
+        </div>
+
+        <div class="secure">
+            🔒 Your payment information is protected.
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="payment-form">
+
+        <div id="formSection">
+
+            <h2>Payment Details</h2>
+
+            <p class="subtitle">
+                Choose a payment method to continue.
+            </p>
+
+            <label>Select Payment Method</label>
+
+            <div class="card-options">
+
+                <button type="button"
+                    class="method active"
+                    data-method="card"
+                    onclick="selectMethod(this)">
+                    💳 Card
+                </button>
+
+                <button type="button"
+                    class="method"
+                    data-method="upi"
+                    onclick="selectMethod(this)">
+                    📱 UPI
+                </button>
+
+                <button type="button"
+                    class="method"
+                    data-method="netbanking"
+                    onclick="selectMethod(this)">
+                    🏦 Net Banking
+                </button>
+
+            </div>
+
+            <form id="paymentForm">
+
+                <div id="cardFields">
+
+                    <label>Cardholder Name</label>
+                    <input type="text"
+                        id="cardName"
+                        placeholder="Enter your full name"
+                        autocomplete="cc-name"
+                        required>
+
+                    <label>Card Number</label>
+                    <input type="text"
+                        id="cardNumber"
+                        placeholder="1234 5678 9012 3456"
+                        inputmode="numeric"
+                        autocomplete="cc-number"
+                        maxlength="19"
+                        required>
+
+                    <div class="row">
+
+                        <div>
+                            <label>Expiry Date</label>
+                            <input type="text"
+                                id="expiry"
+                                placeholder="MM/YY"
+                                autocomplete="cc-exp"
+                                maxlength="5"
+                                required>
+                        </div>
+
+                        <div>
+                            <label>CVV</label>
+                            <input type="password"
+                                id="cvv"
+                                placeholder="***"
+                                inputmode="numeric"
+                                autocomplete="cc-csc"
+                                maxlength="4"
+                                required>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="upiFields" style="display:none">
+
+                    <label>UPI ID</label>
+                    <input type="text"
+                        id="upiId"
+                        placeholder="yourname@upi"
+                        required disabled>
+
+                </div>
+
+                <div id="bankFields" style="display:none">
+
+                    <label>Select Your Bank</label>
+
+                    <select id="bank"
+                        style="width:100%;padding:14px;border:1px solid #ddd;border-radius:10px;margin-bottom:22px;"
+                        disabled>
+
+                        <option value="">Choose a bank</option>
+                        <option>SBI</option>
+                        <option>HDFC Bank</option>
+                        <option>ICICI Bank</option>
+                        <option>Axis Bank</option>
+                        <option>Federal Bank</option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit" class="pay-button">
+                    🔒 Pay ₹{{total}}
+                </button>
+
+            </form>
+
+            <div class="footer">
+                🔐 Secure Checkout · Trusted Payment Experience
+            </div>
+
+        </div>
+
+
+        <!-- SUCCESS SCREEN -->
+
+        <div id="success">
+
+            <div class="success-icon">✓</div>
+
+            <h2>Thank You!</h2>
+
+            <p style="color:#777;margin:15px 0;">
+                Your demo checkout has been completed.
+            </p>
+
+            <h3 style="color:#4834d4;margin-bottom:25px;">
+                ₹{{total}}
+            </h3>
+
+            <button class="pay-button"
+                type="button"
+                onclick="location.reload()">
+                Back to Payment
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let selectedMethod = "card";
+
+function selectMethod(button) {
+
+    document.querySelectorAll(".method").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    selectedMethod = button.dataset.method;
+
+    const cardFields = document.getElementById("cardFields");
+    const upiFields = document.getElementById("upiFields");
+    const bankFields = document.getElementById("bankFields");
+
+    cardFields.style.display =
+        selectedMethod === "card" ? "block" : "none";
+
+    upiFields.style.display =
+        selectedMethod === "upi" ? "block" : "none";
+
+    bankFields.style.display =
+        selectedMethod === "netbanking" ? "block" : "none";
+
+    cardFields.querySelectorAll("input").forEach(input => {
+        input.disabled = selectedMethod !== "card";
+        input.required = selectedMethod === "card";
+    });
+
+    document.getElementById("upiId").disabled =
+        selectedMethod !== "upi";
+
+    document.getElementById("upiId").required =
+        selectedMethod === "upi";
+
+    document.getElementById("bank").disabled =
+        selectedMethod !== "netbanking";
+
+    document.getElementById("bank").required =
+        selectedMethod === "netbanking";
+
+    document.querySelector(".pay-button").innerText =
+        "🔒 Pay ₹{{total}}";
+}
+
+
+// Format card number
+
+document.getElementById("cardNumber").addEventListener("input", function() {
+
+    let value = this.value.replace(/\D/g, "").slice(0, 16);
+
+    this.value = value.replace(/(.{4})/g, "$1 ").trim();
+
+});
+
+
+// Format expiry date
+
+document.getElementById("expiry").addEventListener("input", function() {
+
+    let value = this.value.replace(/\D/g, "").slice(0, 4);
+
+    if (value.length >= 3) {
+        value = value.slice(0, 2) + "/" + value.slice(2);
+    }
+
+    this.value = value;
+
+});
+
+
+// Demo checkout only — no real payment is processed
+
+document.getElementById("paymentForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    if (selectedMethod === "card") {
+
+        const number = document.getElementById("cardNumber").value;
+        const expiry = document.getElementById("expiry").value;
+        const cvv = document.getElementById("cvv").value;
+
+        if (number.replace(/\D/g, "").length < 13 ||
+            number.replace(/\D/g, "").length > 19) {
+            alert("Please enter a valid card number.");
+            return;
+        }
+
+        if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
+            alert("Please enter the expiry date in MM/YY format.");
+            return;
+        }
+
+        if (!/^\d{3,4}$/.test(cvv)) {
+            alert("Please enter a valid CVV.");
+            return;
+        }
+
+    }
+
+    if (selectedMethod === "upi") {
+
+        const upi = document.getElementById("upiId").value.trim();
+
+        if (!/^[\w.-]+@[\w.-]+$/.test(upi)) {
+            alert("Please enter a valid UPI ID.");
+            return;
+        }
+
+    }
+
+    alert("Demo only: no payment has been processed.");
+
+});
+
+</script>
+
+</body>
+</html>
+```
